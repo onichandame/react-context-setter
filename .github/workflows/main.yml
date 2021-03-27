@@ -1,0 +1,38 @@
+name: CI
+on: 
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  test:
+    name: Test and build on Node ${{ matrix.node }} and ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        uses: onichandame/node-test-action@0.0.0
+
+      - name: Build
+        run: yarn
+  publish:
+    name: Publish package to npm registry
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Build dist
+        run: yarn
+
+      - name: Publish package
+        uses: onichandame/github-action-npm-publish@v0.1.5

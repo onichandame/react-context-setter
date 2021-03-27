@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+jobs:
+  test:
+    name: Test and build on Node ${{ matrix.node }} and ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        uses: onichandame/node-test-action@0.0.0
+
+      - name: Build
+        run: yarn
