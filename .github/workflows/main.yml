@@ -35,7 +35,7 @@ jobs:
         run: yarn
 
       - name: Publish package
-        uses: onichandame/github-action-npm-publish@v0.1.5
+        uses: onichandame/github-action-npm-publish@v0.1.6
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # set this in github secrets
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # leave as it is. auto generated
