@@ -1,7 +1,14 @@
-import { useState, createContext } from 'react';
+import { createContext } from 'react';
 
-export const useContextWithSetter = function<T>(defaultVal: T) {
-  const state = useState<T>(defaultVal);
-  const context = createContext<typeof state>(state);
+type ContextWithSetter<T> = [
+  value: T,
+  setValue: (data: T) => void
+];
+
+export const createContextWithSetter = function<T>(defaultVal: T) {
+  const context = createContext<ContextWithSetter<T>>([
+    defaultVal,
+    () => {},
+  ]);
   return context;
 };
